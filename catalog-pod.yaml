@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: catalog
+  labels:
+    app: catalog
+spec:
+  containers:
+  - name: saps-catalog
+    image: ufcgsaps/catalog:latest
+    env:
+    - name: POSTGRES_USER
+      value: "admin"
+    - name: POSTGRES_PASSWORD
+      value: "admin"
+    - name: POSTGRES_DB
+      value: "saps"
+    ports:
+    - containerPort: 5432

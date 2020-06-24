@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dispatcher
+  labels:
+    app: dispatcher
+spec:
+  containers:
+  - name: dispatcher
+    image: ufcgsaps/dispatcher:latest
+    ports:
+    - containerPort: 8091
+    volumeMounts:
+      - mountPath: /dispatcher/dispatcher.conf
+        name: dispatcher-conf
+      - mountPath: /dispatcher/log4j.properties
+        name: log4j-properties
+      - mountPath: /dispatcher/resources/execution_script_tags.json
+        name: execution-script-tags
+  volumes:
+  - name: dispatcher-conf
+    hostPath:
+      path: /home/docker/config/dispatcher.conf
+      type: File
+  - name: log4j-properties
+    hostPath:
+      path: /home/docker/config/log4j.properties
+      type: File
+  - name: execution-script-tags
+    hostPath:
+      path: /home/docker/config/execution_script_tags.json
+      type: File
